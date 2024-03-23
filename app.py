@@ -30,6 +30,8 @@ def cria_audio(texto):
     # Fale o texto
     engine.say(texto)
 
+    del texto
+
     # Aguarde até que a fala seja concluída antes de encerrar o programa
     engine.runAndWait()
    
@@ -52,10 +54,14 @@ def ouvir_microfone():
         try:
             # Passa o audio para o reconhecedor de padroes do speech_recognition
             frase = microfone.recognize_google(audio, language="pt-BR")
+
+            del audio
             
 
             # Após alguns segundos, retorna a frase falada
             response = model.generate_content(f"{frase}")
+
+            del frase
 
             texto = response.text.replace("*", "")
 
@@ -64,8 +70,9 @@ def ouvir_microfone():
 
             cria_audio(texto)
 
-            return texto
+            del texto
 
+            
         # Caso nao tenha reconhecido o padrao de fala, exibe esta mensagem
         except:
             cria_audio("Verifique sua conexão à internet, se su microfone está ligado ou se configurou a api-key da Gemini corretamente...")
@@ -75,6 +82,9 @@ def enviar_chat():
     txt = ui.txt_chat.toPlainText()
     
     cria_audio(txt)
+
+    del txt
+
     try:
         # Após alguns segundos, retorna a frase falada
         response = model.generate_content(f"{txt}")
@@ -86,8 +96,9 @@ def enviar_chat():
 
         cria_audio(texto)
 
-        return texto
+        del texto
 
+        
     # Caso nao tenha reconhecido o padrao de fala, exibe esta mensagem
     except:
         cria_audio("Verifique sua conexão à internet, se su microfone está ligado ou se configurou a api-key da Gemini corretamente...")
