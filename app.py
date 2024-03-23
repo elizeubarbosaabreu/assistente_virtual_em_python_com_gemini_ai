@@ -31,10 +31,10 @@ def cria_audio(texto):
     # Fale o texto
     engine.say(texto)
 
-    del texto
-
     # Aguarde até que a fala seja concluída antes de encerrar o programa
     engine.runAndWait()
+
+    del texto, engine
 
 
 # Funcao responsavel por ouvir e reconhecer a fala
