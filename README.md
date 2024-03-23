@@ -15,7 +15,7 @@ cd assistente_virtual_em_python_com_gemini_ai
 - Crie um ambiente virtual e instale as dependências:
 
 ~~~
-python -m venv env
+python3 -m venv env
 source env/bin/activate
 pip install -r requirements.txt
 ~~~
@@ -25,7 +25,7 @@ pip install -r requirements.txt
 - Para executar o software basta executar o comando:
 
 ~~~
-python app.py
+python3 app.py
 ~~~
 
 - Dá para converter o **app.py** em executável com o comando:
