@@ -16,6 +16,7 @@ cd assistente_virtual_em_python_com_gemini_ai
 
 ~~~
 python -m venv env
+source env/bin/activate
 pip install -r requirements.txt
 ~~~
 
