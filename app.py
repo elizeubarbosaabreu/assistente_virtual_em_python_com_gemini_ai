@@ -11,6 +11,7 @@ import pyttsx3
 genai.configure(api_key=API_KEY)
 model = genai.GenerativeModel("gemini-pro")
 
+
 # Funcao responsavel por falar
 def cria_audio(texto):
 
@@ -19,10 +20,10 @@ def cria_audio(texto):
 
     # Portugues brasil
     engine.setProperty("voice", "brazil")
-    engine.setProperty('language', 'pt-br')
+    engine.setProperty("language", "pt-br")
 
     # Altere a velocidade da fala (o padrão é 200)
-    engine.setProperty("rate", 150)
+    engine.setProperty("rate", 190)
 
     # Altere o volume da fala (o padrão é 1.0)
     engine.setProperty("volume", 0.8)
@@ -34,7 +35,8 @@ def cria_audio(texto):
 
     # Aguarde até que a fala seja concluída antes de encerrar o programa
     engine.runAndWait()
-   
+
+
 # Funcao responsavel por ouvir e reconhecer a fala
 def ouvir_microfone():
 
@@ -50,58 +52,53 @@ def ouvir_microfone():
 
         # Armazena a informacao de audio na variavel
         audio = microfone.listen(source)
-        
+
         try:
             # Passa o audio para o reconhecedor de padroes do speech_recognition
             frase = microfone.recognize_google(audio, language="pt-BR")
 
-            del audio
-            
-
             # Após alguns segundos, retorna a frase falada
             response = model.generate_content(f"{frase}")
 
-            del frase
-
             texto = response.text.replace("*", "")
-
+            
             # imprime texto
             ui.txt_chat.setText(texto)
 
             cria_audio(texto)
 
-            del texto
+            del audio, frase, response
 
-            
         # Caso nao tenha reconhecido o padrao de fala, exibe esta mensagem
         except:
-            cria_audio("Verifique sua conexão à internet, se su microfone está ligado ou se configurou a api-key da Gemini corretamente...")
+            cria_audio(
+                "Verifique sua conexão à internet, se su microfone está ligado ou se configurou a api-key da Gemini corretamente..."
+            )
 
 
 def enviar_chat():
     txt = ui.txt_chat.toPlainText()
-    
-    cria_audio(txt)
 
-    del txt
+    cria_audio(txt)
 
     try:
         # Após alguns segundos, retorna a frase falada
         response = model.generate_content(f"{txt}")
 
-        texto = response.text.replace("*", "")
+        texto = response.text.replace("*", "")        
 
         # imprime texto
-        ui.txt_chat.setText(texto)        
+        ui.txt_chat.setText(texto)
 
         cria_audio(texto)
 
-        del texto
+        del txt, response
 
-        
     # Caso nao tenha reconhecido o padrao de fala, exibe esta mensagem
     except:
-        cria_audio("Verifique sua conexão à internet, se su microfone está ligado ou se configurou a api-key da Gemini corretamente...")
+        cria_audio(
+            "Verifique sua conexão à internet, se su microfone está ligado ou se configurou a api-key da Gemini corretamente..."
+        )
 
 
 if __name__ == "__main__":
@@ -115,7 +112,6 @@ if __name__ == "__main__":
     # botões
     ui.bt_enviar.clicked.connect(enviar_chat)
     ui.bt_usar_mic.clicked.connect(ouvir_microfone)
-    
 
     MainWindow.show()
     sys.exit(app.exec())
