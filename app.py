@@ -68,7 +68,7 @@ def ouvir_microfone():
 
         # Caso nao tenha reconhecido o padrao de fala, exibe esta mensagem
         except:
-            cria_audio("Tente Novamente...")
+            cria_audio("Verifique sua conexão à internet, se su microfone está ligado ou se configurou a api-key da Gemini corretamente...")
 
 
 def enviar_chat():
@@ -90,7 +90,7 @@ def enviar_chat():
 
     # Caso nao tenha reconhecido o padrao de fala, exibe esta mensagem
     except:
-        cria_audio("Tente Novamente...")
+        cria_audio("Verifique sua conexão à internet, se su microfone está ligado ou se configurou a api-key da Gemini corretamente...")
 
 
 if __name__ == "__main__":
