@@ -78,11 +78,11 @@ def enviar_chat():
         gemini_ai(txt)
         ui.txt_chat.setText(texto.replace("*", " ")) 
 
-    # Caso nao tenha reconhecido o padrao de fala, exibe esta mensagem
-    except:
-        cria_audio(
-            "Verifique sua conexão à internet, se seu microfone está ligado ou se configurou a api-key da Gemini corretamente..."
-        )
+        # Caso nao tenha reconhecido o padrao de fala, exibe esta mensagem
+        except:
+            cria_audio("Não consegui entender...")
+            time.sleep(3)
+            ouvir_microfone()
 
 
 if __name__ == "__main__":
