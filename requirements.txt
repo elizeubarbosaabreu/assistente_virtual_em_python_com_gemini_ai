@@ -147,7 +147,7 @@ pydantic==2.6.2
 pydantic_core==2.16.3
 PyDispatcher==2.0.7
 PyGetWindow==0.0.9
-Pygments==2.11.2
+Pygments==2.15.0
 PyGObject==3.42.1
 pyinstaller==6.4.0
 pyinstaller-hooks-contrib==2024.1
