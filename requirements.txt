@@ -185,7 +185,7 @@ PyYAML==5.4.1
 pyzmq==22.3.0
 qrtools==2.1
 queuelib==1.6.2
-reportlab==3.6.8
+reportlab==3.6.13
 requests==2.31.0
 requests-file==2.0.0
 rsa==4.9
