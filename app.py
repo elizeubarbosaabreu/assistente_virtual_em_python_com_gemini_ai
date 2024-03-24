@@ -1,44 +1,38 @@
 from PyQt6 import QtCore, QtGui, QtWidgets
 import speech_recognition as sr
 import google.generativeai as genai
-import os
+import os, time
 from api_gemini import API_KEY
 from template import Ui_MainWindow
-import pyttsx3
-
+from functools import cache
+from gtts import gTTS
+from playsound import playsound
 
 # Inicia Gemini
-genai.configure(api_key=API_KEY)
-model = genai.GenerativeModel("gemini-pro")
-
+@cache
+def gemini_ai(frase):
+    genai.configure(api_key=API_KEY)
+    model = genai.GenerativeModel("gemini-pro")
+    response = model.generate_content(frase)
+    try:
+        texto = response.text
+        ui.txt_chat.setText("Resposta:\n"+texto.replace("*", " "))        
+        cria_audio(texto.replace("*", " "))
+             
+    except Exception as e:
+        ui.txt_chat.setText(f'{type(e).__name__}: {e}')        
+        cria_audio(f'{type(e).__name__}: {e}')         
+     
 
 # Funcao responsavel por falar
 def cria_audio(texto):
-
-    # Inicialize o mecanismo TTS
-    engine = pyttsx3.init()
-
-    # Portugues brasil
-    engine.setProperty("voice", "brazil")
-    engine.setProperty("language", "pt-br")
-
-    # Altere a velocidade da fala (o padrão é 200)
-    engine.setProperty("rate", 190)
-
-    # Altere o volume da fala (o padrão é 1.0)
-    engine.setProperty("volume", 0.8)
-
-    # Fale o texto
-    engine.say(texto)
-
-    # Aguarde até que a fala seja concluída antes de encerrar o programa
-    engine.runAndWait()
-
-    del texto, engine
-
+    lingua= "pt"
+    tts = gTTS(texto, lang=lingua)
+    tts.save("audio.mp3")
+    playsound("audio.mp3")    
 
 # Funcao responsavel por ouvir e reconhecer a fala
-def ouvir_microfone():
+def ouvir_microfone():   
 
     # Habilita o microfone para ouvir o usuario
     microfone = sr.Recognizer()
@@ -57,47 +51,37 @@ def ouvir_microfone():
             # Passa o audio para o reconhecedor de padroes do speech_recognition
             frase = microfone.recognize_google(audio, language="pt-BR")
 
-            # Após alguns segundos, retorna a frase falada
-            response = model.generate_content(f"{frase}")
+            # Após alguns segundos, retorna a frase falada 
+            if "sair" in frase:
+                cria_audio("tudo bem")  
+            else:         
+                gemini_ai(frase)                
 
-            texto = response.text.replace("*", "")
-            
-            # imprime texto
-            ui.txt_chat.setText(texto)
-
-            cria_audio(texto)
-
-            del audio, frase, response
 
         # Caso nao tenha reconhecido o padrao de fala, exibe esta mensagem
         except:
-            cria_audio(
-                "Verifique sua conexão à internet, se su microfone está ligado ou se configurou a api-key da Gemini corretamente..."
-            )
+            cria_audio("Não consegui entender...")
+            time.sleep(3)
+            ouvir_microfone()
+            
 
-
+# Entrada de texto
 def enviar_chat():
+
+
     txt = ui.txt_chat.toPlainText()
 
     cria_audio(txt)
 
     try:
-        # Após alguns segundos, retorna a frase falada
-        response = model.generate_content(f"{txt}")
-
-        texto = response.text.replace("*", "")        
-
-        # imprime texto
-        ui.txt_chat.setText(texto)
-
-        cria_audio(texto)
-
-        del txt, response
+        # Após alguns segundos, retorna a frase falada                   
+        gemini_ai(txt)
+        ui.txt_chat.setText(texto.replace("*", " ")) 
 
     # Caso nao tenha reconhecido o padrao de fala, exibe esta mensagem
     except:
         cria_audio(
-            "Verifique sua conexão à internet, se su microfone está ligado ou se configurou a api-key da Gemini corretamente..."
+            "Verifique sua conexão à internet, se seu microfone está ligado ou se configurou a api-key da Gemini corretamente..."
         )
 
 

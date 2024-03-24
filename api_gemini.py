@@ -1,3 +1,3 @@
 # Acesse o site https://ai.google.dev/ para obter a sua key do gemini. Guarde a com você ela é de uso particular...
 
-API_KEY = "api-key-do-gemini-aqui"
+API_KEY = "sua-gemini-api-aqui"

@@ -44,7 +44,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "Sueli artificial Inteligence"))
-        self.txt_chat.setPlaceholderText(_translate("MainWindow", "Pergunte qualquer coisa..."))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Gemini Api - Assistente Com Inteligência Artificial"))
+        self.txt_chat.setPlaceholderText(_translate("MainWindow", "Pergunte qualquer coisa...\nÀs vezes demoro um pouco para responder seja paciente comigo..."))
         self.bt_usar_mic.setText(_translate("MainWindow", "Usar Microfone"))
         self.bt_enviar.setText(_translate("MainWindow", "Enviar"))
