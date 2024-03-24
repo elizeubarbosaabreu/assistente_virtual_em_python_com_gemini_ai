@@ -79,10 +79,10 @@ def enviar_chat():
         ui.txt_chat.setText(texto.replace("*", " ")) 
 
         # Caso nao tenha reconhecido o padrao de fala, exibe esta mensagem
-        except:
-            cria_audio("Não consegui entender...")
-            time.sleep(3)
-            ouvir_microfone()
+    except:
+        cria_audio("Verifique sua conexão ou api-key...")
+        time.sleep(3)
+        # ouvir_microfone()
 
 
 if __name__ == "__main__":
