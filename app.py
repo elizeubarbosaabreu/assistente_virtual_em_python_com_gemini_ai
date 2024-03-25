@@ -52,10 +52,7 @@ def ouvir_microfone():
             frase = microfone.recognize_google(audio, language="pt-BR")
 
             # Após alguns segundos, retorna a frase falada 
-            if "sair" in frase:
-                cria_audio("tudo bem")  
-            else:         
-                gemini_ai(frase)                
+            gemini_ai(frase)                
 
 
         # Caso nao tenha reconhecido o padrao de fala, exibe esta mensagem
@@ -71,13 +68,18 @@ def enviar_chat():
 
     txt = ui.txt_chat.toPlainText()
 
-    cria_audio(txt)
+    if txt:
+
+        cria_audio(txt)
+
+    else:
+
+        txt = "Oi Gemini, hoje está um belo dia..."
 
     try:
         # Após alguns segundos, retorna a frase falada                   
         gemini_ai(txt)
-        ui.txt_chat.setText(texto.replace("*", " ")) 
-
+        
         # Caso nao tenha reconhecido o padrao de fala, exibe esta mensagem
     except:
         cria_audio("Verifique sua conexão ou api-key...")

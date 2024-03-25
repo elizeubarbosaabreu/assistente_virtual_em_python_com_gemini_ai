@@ -26,6 +26,7 @@ pip install -r requirements.txt
 python3 app.py
 ```
 
+- Se apresentar erros de dependênias pesquise e instale os adicionais. Testei tudo no Ubuntu 22.04
 - Dá para converter o **app.py** em executável com o comando:
 
 ```
