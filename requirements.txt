@@ -25,7 +25,7 @@ pydantic_core==2.16.3
 PyQt6==6.6.1
 PyQt6-Qt6==6.6.2
 PyQt6-sip==13.6.0
-requests==2.31.0
+requests==2.32.0
 rsa==4.9
 soupsieve==2.5
 SpeechRecognition==3.10.1
