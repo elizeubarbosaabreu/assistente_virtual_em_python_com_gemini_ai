@@ -32,7 +32,7 @@ rsa==4.9
 setuptools==73.0.1
 soupsieve==2.5
 SpeechRecognition==3.10.1
-tqdm==4.66.2
+tqdm==4.66.3
 typing_extensions==4.10.0
 urllib3==2.2.1
 wheel==0.44.0
